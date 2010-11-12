@@ -54,9 +54,15 @@ class Mechanize
                    search('title').inner_text
                  end
     end
-
+    
     def my_title
-      @title = body.gsub(/\t|\n|\r/, "").gsub(/^.*?<title>/, "").gsub(/<\/title.*/, "")
+      begin
+        str = body.gsub(/\t|\n|\r/i, "")
+        @title = str[/<title>(.*)<\/title/i].gsub(/^<title>|<\/title$/i, "")
+      rescue
+        @title = nil
+      end
+      @title
     end
 
     def encoding=(encoding)
