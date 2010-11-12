@@ -55,6 +55,10 @@ class Mechanize
                  end
     end
 
+    def my_title
+      @title = body.gsub(/\t|\n|\r/, "").gsub(/^.*?<title>/, "").gsub(/<\/title.*/, "")
+    end
+
     def encoding=(encoding)
       @encoding = encoding
 
